@@ -13,9 +13,9 @@
 <script>
 
     // set the dimensions and margins of the graph
-    var margin = {top: 80, right: 25, bottom: 30, left: 40},
-      width = 450 - margin.left - margin.right,
-      height = 450 - margin.top - margin.bottom;
+    var margin = {top: 80, right: 25, bottom: 30, left: 200},
+      width = 700 - margin.left - margin.right,
+      height = 700 - margin.top - margin.bottom;
     
     // append the svg object to the body of the page
     var svg = d3.select("#my_dataviz")
@@ -46,7 +46,7 @@
     
       // Build Y scales and axis:
       var y = d3.scaleBand()
-        .range([ height, 0 ])
+        .range([ height, 20 ])
         .domain(myVars)
         .padding(0.05);
       svg.append("g")
@@ -55,10 +55,12 @@
         .select(".domain").remove()
     
       // Build color scale
-      var myColor = d3.scaleSequential()
-        .interpolator(d3.interpolateInferno)
-        .domain([1,100])
     
+      var myColor = d3.scaleLinear()
+        //.interpolator(d3.interpolate('green','red','yellow'))
+        .domain([0,1,4])    
+        .range(['green', 'yellow', 'red']);
+
       // create a tooltip
       var tooltip = d3.select("#my_dataviz")
         .append("div")
@@ -80,7 +82,7 @@
       }
       var mousemove = function(d) {
         tooltip
-          .html("The exact value of<br>this cell is: " + d.value)
+          .html("There are " + Math.round(d.value * 100) / 100 + "x more/less TRRs from " + d.variable + " officers on " + d.group + " subjects than the probability from the racial demographics would suggest. ")
           .style("left", (d3.mouse(this)[0]+70) + "px")
           .style("top", (d3.mouse(this)[1]) + "px")
       }
@@ -119,7 +121,14 @@
             .attr("text-anchor", "left")
             .style("font-size", "22px")
             .text("TRR Officer Race vs Subject Race");
-    
+    svg.append("text")
+            .attr("x", 0)
+            .attr("y", -35)
+            .attr("text-anchor", "left")
+            .style("font-size", "14px")
+            .style("fill", "grey")
+            .style("max-width", 400)
+            .text("Officer Race is on the left, Subject race is on the bottom")
     // Add subtitle to graph
     svg.append("text")
             .attr("x", 0)
@@ -128,7 +137,21 @@
             .style("font-size", "14px")
             .style("fill", "grey")
             .style("max-width", 400)
-            .text("Looking into the racial demographics of Chicago PD, and Chicago overall and comparing that with the officer and subject race of TRRs to find overrepresentation. For chicago population, we have Native American as other because overall chicago racial demographics does not give information on Native Americans");
-    
-    
+            .text("Calculated by taking TRR percentage divided by population percentage")
+    svg.append("text")
+            .attr("x", 0)
+            .attr("y", -5)
+            .attr("text-anchor", "left")
+            .style("font-size", "14px")
+            .style("fill", "grey")
+            .style("max-width", 400)
+            .text("Higher number/red means overrepresented. ")
+    svg.append("text")
+            .attr("x", 0)
+            .attr("y", 10)
+            .attr("text-anchor", "left")
+            .style("font-size", "14px")
+            .style("fill", "grey")
+            .style("max-width", 400)
+            .text("Lower number/green means underepresented. ")
     </script>
