@@ -27,7 +27,7 @@
             "translate(" + margin.left + "," + margin.top + ")");
     
     //Read the data
-    d3.csv("data/fake.csv", function(data) {
+    d3.csv("https://raw.githubusercontent.com/LYuan22/teststuff/master/data/fake.csv", function(data) {
       console.log(data)
       // Labels of row and columns -> unique identifier of the column called 'group' and 'variable'
       var myGroups = d3.map(data, function(d){return d.group;}).keys()
