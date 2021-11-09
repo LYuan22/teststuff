@@ -27,7 +27,7 @@
             "translate(" + margin.left + "," + margin.top + ")");
     
     //Read the data
-    d3.csv("https://raw.githubusercontent.com/LYuan22/teststuff/master/data/fake.csv", function(data) {
+    d3.csv("https://raw.githubusercontent.com/LYuan22/teststuff/master/data/asdf.csv", function(data) {
       console.log(data)
       // Labels of row and columns -> unique identifier of the column called 'group' and 'variable'
       var myGroups = d3.map(data, function(d){return d.group;}).keys()
@@ -128,7 +128,7 @@
             .style("font-size", "14px")
             .style("fill", "grey")
             .style("max-width", 400)
-            .text("Looking into the racial demographics of Chicago PD, and Chicago overall and comparing that with the officer and subject race of TRRs to find overrepresentation");
+            .text("Looking into the racial demographics of Chicago PD, and Chicago overall and comparing that with the officer and subject race of TRRs to find overrepresentation. For chicago population, we have Native American as other because overall chicago racial demographics does not give information on Native Americans");
     
     
     </script>
